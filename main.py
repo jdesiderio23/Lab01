@@ -23,21 +23,28 @@ with open("domande.txt", encoding="utf-8") as f:
         if righe.index(riga) == 2 or righe.index(riga)%7==2 :
             risposte.append([riga,righe[righe.index(riga) + 1],righe[righe.index(riga) + 2],righe[righe.index(riga) + 3]])
     k = 0
+    diff = 0
+    print(risposta_corretta)
     while k <= len(righe)/7:
-          domande = Domanda(testi[k],difficoltà[k],risposta_corretta[k],risposte[k])
-          testo_random = random.choice(testi)
-          # while domande.difficoltà!=0:
-          print(domande.testo)
-          risposte_stampate = []
-          while len(risposte_stampate) < 4:
-              risposta_random = random.choice(domande.risposte)
-              if risposta_random not in risposte_stampate:
-                  print(risposta_random)
-                  risposte_stampate.append(risposta_random)
-          tentativo = input("Inserire una risposta alla domanda:")
-          if tentativo == domande.risposta_corretta:
-              print("Risposta corretta!")
-          else:
-              print("Risposta errata.")
-              break
-          k += 1
+        domanda_n = random.randint(0,int(len(righe)/7)+2)
+        domande = Domanda(testi[domanda_n],difficoltà[domanda_n],risposta_corretta[domanda_n],risposte[domanda_n])
+        testo_random = random.choice(testi)
+        base = []
+        if domande.difficoltà == diff:
+              base.append(domande.testo)
+              print(random.choice(base))
+              risposte_stampate = []
+              while len(risposte_stampate) < 4:
+                 risposta_random = random.choice(domande.risposte)
+                 if risposta_random not in risposte_stampate:
+                     print(risposta_random)
+                     risposte_stampate.append(risposta_random)
+                     tentativo = input("Inserire una risposta alla domanda:")
+                     if tentativo == domande.risposta_corretta:
+                        print("Risposta corretta!")
+                        diff += 1
+                     else:
+                        print("Risposta errata.")
+                        break
+        else:
+             k += 1
